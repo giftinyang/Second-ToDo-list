@@ -1,6 +1,6 @@
 <template>
-     <div class="myCenter">
-        <div class="row justify-content-center">
+     <div class="container">
+        <div class="row align-content-center">
             <div class="col-sm-5">
                 <div class="card shadow p-4">
                     <div class="row">
@@ -24,8 +24,10 @@
                             <ul class="list-group">
                                 <li v-for="(Do, index) in Doing" :key="index" class="list-group-item">
                                     <p>{{ index + 1 }}- <span @click="strikeThrough(index)" class="myHov" >{{ Do }}</span>
-                                    <span @click="deleteDoing(index)"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></span>
-                                    <span class="mys mr-2" @click="editDoing(Do)">Edit</span></p>       
+                                    <span @click="deleteDoing(index)"><button type="button" class="close"  aria-label="Close"> <span aria-hidden="true">&times;</span></button></span>
+                                    <span @click="strikeThrough(index)" button type="button" class="btn btn-success"/>
+                                    <span class="mys mr-2" @click="editDoing(Do)">Edit</span></p>  
+
                                 </li>
                             </ul>
                         </div>
@@ -36,7 +38,7 @@
                             <h2>Done</h2>
                             <ul class="list-group">
                                 <li v-for="(todo, i) in Done" :key="i" class="list-group-item">
-                                    <p>{{ i + 1 }}-  <span @click="strikeThrough(i)" class="myHov" >{{ complete }}</span>
+                                    <p>{{ i + 1 }}-  <span  class="myHov" >{{ todo }}</span>
                                     <!-- <span @click="deleteTodos(index)"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></span>
                                     <span class="mys mr-2" @click="editTodos(todo)">Edit</span> --></p> 
                                 </li>
@@ -64,7 +66,8 @@ export default {
                 completed: true,
                 todos: [],
                 indexOfTheItemWeWantToEdit: null,
-                editText: null
+                editText: null,
+                complete: ''
             }
         },
         methods: {
@@ -84,7 +87,7 @@ export default {
             deleteDoing(index){
                 var item = this.Doing[index];
                 this.Doing.splice(index, 1);
-                this.Done.push(this.item);
+                // this.Done.push(this.item);
             },
             editDoing(id){
                 this.myList.input = id;
@@ -103,9 +106,11 @@ export default {
                 this.myList.input = "";
             },
             strikeThrough(index){
-                this.completed.push(this.todos[i]);
-                this.todos.splice(i, 1)
+                var item = this.Doing[index];
+                this.Done.push(item);
+                this.Doing.splice(index, 1);
             },
+
         }
 }
 </script>
